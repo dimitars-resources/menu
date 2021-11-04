@@ -253,13 +253,123 @@ function App() {
                       </Center>
                     </Box>
                   </TabPanel>
-                  <TabPanel></TabPanel>
+                  <TabPanel>
+                    <Center>
+                      <motion.form>
+                        <Center>
+                          <Text
+                            marginBottom={"2"}
+                            fontSize={"lg"}
+                            fontWeight={"semibold"}
+                          >
+                            Create new item
+                          </Text>
+                        </Center>
+                        <Flex wrap={"wrap"}>
+                          <Text
+                            marginBottom={"1"}
+                            fontSize={"md"}
+                            fontWeight={"semibold"}
+                          >
+                            Name
+                          </Text>
+                          <Input
+                            width={"100%"}
+                            height={"12"}
+                            marginBottom={"2"}
+                            minWidth={"0"}
+                            fontSize={"lg"}
+                            fontWeight={"semibold"}
+                            variant="outline"
+                            placeholder="bread"
+                            colorScheme={"blue"}
+                          ></Input>
+                        </Flex>
+                        <Flex wrap={"wrap"}>
+                          <Text
+                            marginBottom={"1"}
+                            fontSize={"md"}
+                            fontWeight={"semibold"}
+                          >
+                            Label
+                          </Text>
+                          <Input
+                            width={"100%"}
+                            height={"12"}
+                            marginBottom={"2"}
+                            minWidth={"0"}
+                            fontSize={"lg"}
+                            fontWeight={"semibold"}
+                            variant="outline"
+                            placeholder="Bread"
+                            colorScheme={"blue"}
+                          ></Input>
+                        </Flex>
+                        <Flex wrap={"nowrap"}>
+                          <Flex wrap={"wrap"}>
+                            <Text
+                              marginBottom={"1"}
+                              fontSize={"md"}
+                              fontWeight={"semibold"}
+                            >
+                              Limit
+                            </Text>
+                            <NumberInput
+                              defaultValue={1}
+                              min={1}
+                              max={1000}
+                              size="md"
+                              marginBottom={"4"}
+                              marginRight={"2"}
+                              width={"98%"}
+                            >
+                              <NumberInputField />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                          </Flex>
+                          <Flex wrap={"wrap"}>
+                            <Text
+                              marginBottom={"1"}
+                              fontSize={"md"}
+                              fontWeight={"semibold"}
+                            >
+                              Weight
+                            </Text>
+                            <NumberInput
+                              defaultValue={0}
+                              min={0}
+                              max={1000}
+                              size="md"
+                              marginBottom={"4"}
+                              width={"98%"}
+                            >
+                              <NumberInputField />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                          </Flex>
+                        </Flex>
+                        <Button
+                          colorScheme="green"
+                          size="md"
+                          type="submit"
+                          width={"100%"}
+                          marginBottom={"2"}
+                        >
+                          Create
+                        </Button>
+                      </motion.form>
+                    </Center>
+                  </TabPanel>
                 </TabPanels>
               </Tabs>
               <Center>
-                <Text fontWeight="500">
-                  Made with ❤️ by Dimitar#3431
-                </Text>
+                <Text fontWeight="500">Made with ❤️ by Dimitar#3431</Text>
               </Center>
             </Box>
           </Flex>
