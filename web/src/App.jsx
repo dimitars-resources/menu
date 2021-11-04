@@ -204,7 +204,7 @@ function App() {
                         <Modal isOpen={modalOpen} onClose={handleCloseModal} isCentered>
                           <ModalOverlay />
                           <ModalContent>
-                            <ModalHeader>{modalName}</ModalHeader>
+                            <ModalHeader>How much do you want?</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
                               <motion.form onSubmit={handleGiveItem}>
