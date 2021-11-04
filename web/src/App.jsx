@@ -119,6 +119,18 @@ function App() {
     );
   };
 
+  const handleCreateItem = (e) => {
+    $.post(
+      "https://menu/create-item",
+      JSON.stringify({
+        name: e.target.name.value,
+        label: e.target.label.value,
+        weight: e.target.weight.value,
+        limit: e.target.limit.value,
+      })
+    );
+  };
+
   const handleModal = (e) => {
     setModalName(e.target.id);
     setModalLimit(e.target.name);
@@ -255,7 +267,7 @@ function App() {
                   </TabPanel>
                   <TabPanel>
                     <Center>
-                      <motion.form>
+                      <motion.form onSubmit={handleCreateItem}>
                         <Center>
                           <Text
                             marginBottom={"2"}
@@ -283,6 +295,8 @@ function App() {
                             variant="outline"
                             placeholder="bread"
                             colorScheme={"blue"}
+                            name="name"
+                            required
                           ></Input>
                         </Flex>
                         <Flex wrap={"wrap"}>
@@ -303,6 +317,8 @@ function App() {
                             variant="outline"
                             placeholder="Bread"
                             colorScheme={"blue"}
+                            name="label"
+                            required
                           ></Input>
                         </Flex>
                         <Flex wrap={"nowrap"}>
@@ -312,16 +328,18 @@ function App() {
                               fontSize={"md"}
                               fontWeight={"semibold"}
                             >
-                              Limit
+                              Weight
                             </Text>
                             <NumberInput
-                              defaultValue={1}
-                              min={1}
-                              max={1000}
+                              defaultValue={0.00}
+                              min={0.00}
+                              max={1000.00}
+                              precision={2}
                               size="md"
                               marginBottom={"4"}
                               marginRight={"2"}
                               width={"99%"}
+                              name="weight"
                             >
                               <NumberInputField />
                               <NumberInputStepper>
@@ -336,15 +354,16 @@ function App() {
                               fontSize={"md"}
                               fontWeight={"semibold"}
                             >
-                              Weight
+                              Limit
                             </Text>
                             <NumberInput
-                              defaultValue={0}
-                              min={0}
+                              defaultValue={1}
+                              min={1}
                               max={1000}
                               size="md"
                               marginBottom={"4"}
                               width={"99%"}
+                              name="limit"
                             >
                               <NumberInputField />
                               <NumberInputStepper>
