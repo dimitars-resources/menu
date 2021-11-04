@@ -149,107 +149,115 @@ function App() {
               <Tabs isFitted colorScheme={"blue"}>
                 <TabList mb="1em">
                   <Tab fontWeight={"semibold"}>Items</Tab>
-                  <Tab fontWeight={"semibold"} isDisabled>
-                    Create
-                  </Tab>
+                  <Tab fontWeight={"semibold"}>Create</Tab>
                 </TabList>
-                <Center>
-                  <Input
-                    width={"90%"}
-                    height={"12"}
-                    marginBottom={"2"}
-                    minWidth={"0"}
-                    fontSize={"lg"}
-                    fontWeight={"semibold"}
-                    variant="outline"
-                    placeholder="🔍 Search"
-                    colorScheme={"blue"}
-                    onChange={handleSearch}
-                  />
-                </Center>
                 <TabPanels>
-                  <TabPanel maxHeight={"48vh"} overflowY={"auto"}>
+                  <TabPanel>
                     <Center>
-                      <Flex width={"90%"} flexWrap={"wrap"} justify={"center"}>
-                        {filtered
-                          ? filtered.length > 0 &&
-                            filtered.map(function (data) {
-                              const { name, label, limit } = data;
-                              return (
-                                <Button
-                                  id={name}
-                                  name={limit}
-                                  onClick={handleModal}
-                                  margin={"2"}
-                                  colorScheme={"blue"}
-                                >
-                                  {label}
-                                </Button>
-                              );
-                            })
-                          : itemsList.map(function (data) {
-                              const { name, label, limit } = data;
-                              return (
-                                <Button
-                                  id={name}
-                                  name={limit}
-                                  onClick={handleModal}
-                                  margin={"2"}
-                                  colorScheme={"blue"}
-                                >
-                                  {label}
-                                </Button>
-                              );
-                            })}
-                        <Modal isOpen={modalOpen} onClose={handleCloseModal} isCentered>
-                          <ModalOverlay />
-                          <ModalContent>
-                            <ModalHeader>How much do you want?</ModalHeader>
-                            <ModalCloseButton />
-                            <ModalBody>
-                              <motion.form onSubmit={handleGiveItem}>
-                                <Flex
-                                  flexWrap={"nowrap"}
-                                  justify={"space-between"}
-                                >
-                                  <NumberInput
-                                    defaultValue={1}
-                                    min={1}
-                                    max={modalLimit}
-                                    size="md"
-                                    maxW={24}
-                                    marginRight={"2"}
-                                    id={modalName}
-                                    name="amount"
-                                  >
-                                    <NumberInputField />
-                                    <NumberInputStepper>
-                                      <NumberIncrementStepper />
-                                      <NumberDecrementStepper />
-                                    </NumberInputStepper>
-                                  </NumberInput>
-                                  <Button
-                                    leftIcon={<GiveIcon />}
-                                    colorScheme="green"
-                                    size="md"
-                                    width={400}
-                                    type="submit"
-                                  >
-                                    Give
-                                  </Button>
-                                </Flex>
-                              </motion.form>
-                            </ModalBody>
-                          </ModalContent>
-                        </Modal>
-                      </Flex>
+                      <Input
+                        width={"90%"}
+                        height={"12"}
+                        marginBottom={"2"}
+                        minWidth={"0"}
+                        fontSize={"lg"}
+                        fontWeight={"semibold"}
+                        variant="outline"
+                        placeholder="🔍 Search"
+                        colorScheme={"blue"}
+                        onChange={handleSearch}
+                      />
                     </Center>
+                    <Box maxHeight={"47vh"} overflowY={"auto"}>
+                      <Center>
+                        <Flex
+                          width={"90%"}
+                          flexWrap={"wrap"}
+                          justify={"center"}
+                        >
+                          {filtered
+                            ? filtered.length > 0 &&
+                              filtered.map(function (data) {
+                                const { name, label, limit } = data;
+                                return (
+                                  <Button
+                                    id={name}
+                                    name={limit}
+                                    onClick={handleModal}
+                                    margin={"2"}
+                                    colorScheme={"blue"}
+                                  >
+                                    {label}
+                                  </Button>
+                                );
+                              })
+                            : itemsList.map(function (data) {
+                                const { name, label, limit } = data;
+                                return (
+                                  <Button
+                                    id={name}
+                                    name={limit}
+                                    onClick={handleModal}
+                                    margin={"2"}
+                                    colorScheme={"blue"}
+                                  >
+                                    {label}
+                                  </Button>
+                                );
+                              })}
+                          <Modal
+                            isOpen={modalOpen}
+                            onClose={handleCloseModal}
+                            isCentered
+                          >
+                            <ModalOverlay />
+                            <ModalContent>
+                              <ModalHeader>How much do you want?</ModalHeader>
+                              <ModalCloseButton />
+                              <ModalBody>
+                                <motion.form onSubmit={handleGiveItem}>
+                                  <Flex
+                                    flexWrap={"nowrap"}
+                                    justify={"space-between"}
+                                  >
+                                    <NumberInput
+                                      defaultValue={1}
+                                      min={1}
+                                      max={modalLimit}
+                                      size="md"
+                                      maxW={24}
+                                      marginRight={"2"}
+                                      id={modalName}
+                                      name="amount"
+                                    >
+                                      <NumberInputField />
+                                      <NumberInputStepper>
+                                        <NumberIncrementStepper />
+                                        <NumberDecrementStepper />
+                                      </NumberInputStepper>
+                                    </NumberInput>
+                                    <Button
+                                      leftIcon={<GiveIcon />}
+                                      colorScheme="green"
+                                      size="md"
+                                      width={400}
+                                      type="submit"
+                                    >
+                                      Give
+                                    </Button>
+                                  </Flex>
+                                </motion.form>
+                              </ModalBody>
+                            </ModalContent>
+                          </Modal>
+                        </Flex>
+                      </Center>
+                    </Box>
                   </TabPanel>
                   <TabPanel></TabPanel>
                 </TabPanels>
               </Tabs>
               <Center>
-                <Text marginTop={"4"} fontWeight="500">
+                <Text fontWeight="500">
                   Made with ❤️ by Dimitar#3431
                 </Text>
               </Center>
