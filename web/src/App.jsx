@@ -321,7 +321,7 @@ function App() {
                               size="md"
                               marginBottom={"4"}
                               marginRight={"2"}
-                              width={"98%"}
+                              width={"99%"}
                             >
                               <NumberInputField />
                               <NumberInputStepper>
@@ -344,7 +344,7 @@ function App() {
                               max={1000}
                               size="md"
                               marginBottom={"4"}
-                              width={"98%"}
+                              width={"99%"}
                             >
                               <NumberInputField />
                               <NumberInputStepper>
