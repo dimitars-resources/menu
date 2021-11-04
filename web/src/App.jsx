@@ -232,7 +232,7 @@ function App() {
                                     leftIcon={<GiveIcon />}
                                     colorScheme="green"
                                     size="md"
-                                    width={200}
+                                    width={400}
                                     type="submit"
                                   >
                                     Give
