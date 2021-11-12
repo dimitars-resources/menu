@@ -91,6 +91,7 @@ function App() {
     };
   }, []);
 
+  // Credit to: chezza#1234
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     var results = itemsList.filter((data) =>
