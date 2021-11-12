@@ -20,6 +20,7 @@ Menu.RegisterEvent('menu:giveItem', function(source, item, amount)
     end
 end)
 
+-- Credit to: chezza#1234
 function CheckItem(name)
     local p = promise.new()
     MySQL.Async.fetchScalar("SELECT COUNT(1) FROM items WHERE name=@name", 

@@ -1,3 +1,4 @@
+-- Credit to: chezza#1234
 Menu = {}
 Server = IsDuplicityVersion()
 
