@@ -56,6 +56,8 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalName, setModalName] = useState("");
   const [modalLimit, setModalLimit] = useState(0);
+  const [usingLimit, setUsingLimit] = useState(false);
+  const [usingWeight, setUsingWeight] = useState(false);
 
   const onLaunch = (e) => {
     var data = e.data;
@@ -63,6 +65,8 @@ function App() {
       case "open-menu":
         setOpen(true);
         setItemsList(data.itemsList);
+        setUsingLimit(data.limit),
+        setUsingWeight(data.weight)
         break;
 
       case "close-menu":
@@ -118,13 +122,19 @@ function App() {
         label: e.target.label.value,
         weight: e.target.weight.value,
         limit: e.target.limit.value,
+        isLimit: usingLimit,
+        isWeight: usingWeight
       })
     );
   };
 
   const handleModal = (e) => {
     setModalName(e.target.id);
-    setModalLimit(e.target.name);
+    if (usingLimit) {
+      setModalLimit(e.target.name);
+    } else {
+      setModalLimit(1000);
+    }
     setModalOpen(true);
   };
 
@@ -331,6 +341,7 @@ function App() {
                               marginRight={"2"}
                               width={"99%"}
                               name="weight"
+                              isDisabled={!usingWeight}
                             >
                               <NumberInputField />
                               <NumberInputStepper>
@@ -355,6 +366,7 @@ function App() {
                               marginBottom={"4"}
                               width={"99%"}
                               name="limit"
+                              isDisabled={!usingLimit}
                             >
                               <NumberInputField />
                               <NumberInputStepper>

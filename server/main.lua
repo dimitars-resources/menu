@@ -36,16 +36,34 @@ function CheckItem(name)
     return Citizen.Await(p)
 end
 
-Menu.RegisterEvent('menu:createItem', function(source, name, label, weight, limit)
+Menu.RegisterEvent('menu:createItem', function(source, name, label, weight, limit, isLimit, isWeight)
     if CheckItem(name) then
-        MySQL.Async.execute('INSERT INTO `items` (`name`, `label`, `weight`, `limit`) VALUES (@name, @label, @weight, @limit)', {
-            ['@name'] = tostring(name),
-            ['@label'] = tostring(label),
-            ['@weight'] = tonumber(weight),
-            ['@limit'] = tonumber(limit)
-        }, function(itemAdded)
-            print('^5[Menu]^7 Successfully created item with name: `' .. name .. '`!')
-        end)
+        if isLimit and not isWeight then
+            MySQL.Async.execute('INSERT INTO `items` (`name`, `label`, `limit`) VALUES (@name, @label, @limit)', {
+                ['@name'] = tostring(name),
+                ['@label'] = tostring(label),
+                ['@limit'] = tonumber(limit)
+            }, function(itemAdded)
+                print('^5[Menu]^7 Successfully created item with name: `' .. name .. '`!')
+            end)
+        elseif not isLimit and isWeight then
+            MySQL.Async.execute('INSERT INTO `items` (`name`, `label`, `weight`) VALUES (@name, @label, @weight)', {
+                ['@name'] = tostring(name),
+                ['@label'] = tostring(label),
+                ['@weight'] = tonumber(weight)
+            }, function(itemAdded)
+                print('^5[Menu]^7 Successfully created item with name: `' .. name .. '`!')
+            end)
+        else
+            MySQL.Async.execute('INSERT INTO `items` (`name`, `label`, `weight`, `limit`) VALUES (@name, @label, @weight, @limit)', {
+                ['@name'] = tostring(name),
+                ['@label'] = tostring(label),
+                ['@weight'] = tonumber(weight),
+                ['@limit'] = tonumber(limit)
+            }, function(itemAdded)
+                print('^5[Menu]^7 Successfully created item with name: `' .. name .. '`!')
+            end)
+        end
     else
         print('^5[Menu]^7 Item with name: `' .. name .. '` already exist!')
     end

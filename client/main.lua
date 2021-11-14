@@ -5,7 +5,9 @@ RegisterNetEvent('menu:sendItems', function (items)
     SetNuiFocus(true, true)
     SendNUIMessage({
         action = 'open-menu',
-        itemsList = itemsList
+        itemsList = itemsList,
+        limit = Config.Limit,
+        weight = Config.Weight
     })
 end)
 
@@ -35,7 +37,7 @@ RegisterNUICallback("create-item", function(data)
         action = 'close-menu'
     })
 
-    Menu.TriggerServerEvent('menu:createItem', data.name, data.label, data.weight, data.limit)
+    Menu.TriggerServerEvent('menu:createItem', data.name, data.label, data.weight, data.limit, data.isLimit, data.isWeight)
 end)
 
 RegisterKeyMapping('open-menu', 'Open Menu', 'keyboard', 'm')
