@@ -1,8 +1,8 @@
 fx_version 'cerulean'
 game 'gta5'
 
-version '1.0'
-description 'Admin menu for FiveM'
+version '1.0.1'
+description 'Item menu for FiveM'
 author 'Dimitar'
 
 ui_page 'web/dist/index.html'
