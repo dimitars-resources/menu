@@ -1,4 +1,5 @@
 local itemsList = nil
+local isAdmin = false
 
 RegisterNetEvent('menu:sendItems', function (items)
     itemsList = items
@@ -12,7 +13,11 @@ RegisterNetEvent('menu:sendItems', function (items)
 end)
 
 RegisterCommand('open-menu', function()
-    Menu.TriggerServerEvent('menu:getItems')
+    isAdmin = Menu.TriggerServerEvent('menu:isAdmin')
+
+    if isAdmin then
+        Menu.TriggerServerEvent('menu:getItems')
+    end
 end)
 
 RegisterNUICallback("close-menu", function(data)
@@ -28,7 +33,11 @@ RegisterNUICallback("give-item", function(data)
         action = 'close-menu'
     })
 
-    Menu.TriggerServerEvent('menu:giveItem', data.item, data.amount)
+    isAdmin = Menu.TriggerServerEvent('menu:isAdmin')
+
+    if isAdmin then
+        Menu.TriggerServerEvent('menu:giveItem', data.item, data.amount)
+    end
 end)
 
 RegisterNUICallback("create-item", function(data)
@@ -37,7 +46,11 @@ RegisterNUICallback("create-item", function(data)
         action = 'close-menu'
     })
 
-    Menu.TriggerServerEvent('menu:createItem', data.name, data.label, data.weight, data.limit, data.isLimit, data.isWeight)
+    isAdmin = Menu.TriggerServerEvent('menu:isAdmin')
+
+    if isAdmin then
+        Menu.TriggerServerEvent('menu:createItem', data.name, data.label, data.weight, data.limit, data.isLimit, data.isWeight)
+    end
 end)
 
-RegisterKeyMapping('open-menu', 'Open Menu', 'keyboard', 'm')
+RegisterKeyMapping('open-menu', 'Open Menu', 'keyboard', Config.Key)

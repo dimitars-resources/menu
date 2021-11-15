@@ -4,6 +4,13 @@ TriggerEvent('esx:getSharedObject', function(obj)
     ESX = obj
 end)
 
+Menu.RegisterEvent('menu:isAdmin', function(source)
+    local _source = source
+    local xPlayer = ESX.GetPlayerFromId(_source)
+
+	return (xPlayer.getGroup() == Config.RequiredGroup)
+end)
+
 Menu.RegisterEvent('menu:getItems', function(source)
     MySQL.Async.fetchAll("SELECT * FROM `items`", {}, function(items)
         TriggerClientEvent('menu:sendItems', source, items)
