@@ -6,6 +6,7 @@ RegisterNetEvent('menu:sendItems', function (items)
     SetNuiFocus(true, true)
     SendNUIMessage({
         action = 'open-menu',
+        name = GetCurrentResourceName(),
         itemsList = itemsList,
         limit = Config.Limit,
         weight = Config.Weight

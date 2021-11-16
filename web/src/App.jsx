@@ -58,15 +58,17 @@ function App() {
   const [modalLimit, setModalLimit] = useState(0);
   const [usingLimit, setUsingLimit] = useState(false);
   const [usingWeight, setUsingWeight] = useState(false);
+  const [resourceName, setResourceName] = useState('menu');
 
   const onLaunch = (e) => {
     var data = e.data;
     switch (data.action) {
       case "open-menu":
         setOpen(true);
+        setResourceName(data.name);
         setItemsList(data.itemsList);
-        setUsingLimit(data.limit),
-        setUsingWeight(data.weight)
+        setUsingLimit(data.limit);
+        setUsingWeight(data.weight);
         break;
 
       case "close-menu":
@@ -77,7 +79,7 @@ function App() {
 
   const onKeyUp = (e) => {
     if (e.key === "Escape") {
-      $.post("https://menu/close-menu", JSON.stringify({}));
+      $.post(`https://${resourceName}/close-menu`, JSON.stringify({}));
     }
   };
 
@@ -106,7 +108,7 @@ function App() {
 
   const handleGiveItem = (e) => {
     $.post(
-      "https://menu/give-item",
+      `https://${resourceName}/give-item`,
       JSON.stringify({
         item: e.target.amount.id,
         amount: e.target.amount.value,
@@ -116,7 +118,7 @@ function App() {
 
   const handleCreateItem = (e) => {
     $.post(
-      "https://menu/create-item",
+      `https://${resourceName}/create-item`,
       JSON.stringify({
         name: e.target.name.value,
         label: e.target.label.value,
