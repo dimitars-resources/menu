@@ -3,6 +3,7 @@
 <p align = "center">
    <img src = "https://img.shields.io/github/languages/count/DSDimitrov19/menu">
    <img src = "https://img.shields.io/github/repo-size/DSDimitrov19/menu">
+   <img src = "https://img.shields.io/badge/License-MIT-green.svg">
    <img src = "https://img.shields.io/github/stars/DSDimitrov19/menu?style=social">
    <img src = "https://img.shields.io/github/contributors/DSDimitrov19/menu">
 </p>
