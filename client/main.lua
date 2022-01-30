@@ -60,10 +60,12 @@ RegisterNUICallback("clear-inventory", function(data)
 end)
 
 RegisterCommand('open-menu', function()
-    isAdmin = Menu.TriggerServerEvent('menu:isAdmin')
+    if not IsPauseMenuActive() or IsScreenFadedOut() then 
+        isAdmin = Menu.TriggerServerEvent('menu:isAdmin')
 
-    if isAdmin then
-        Menu.TriggerServerEvent('menu:getItems')
+        if isAdmin then
+            Menu.TriggerServerEvent('menu:getItems')
+        end
     end
 end)
 
