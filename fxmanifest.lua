@@ -10,7 +10,8 @@ ui_page 'web/dist/index.html'
 files {
     'web/dist/index.html',
     'web/dist/app.js',
-    'web/styles/*.css'
+    'web/styles/*.css',
+    'web/locales.json'
 }
 
 shared_scripts {
