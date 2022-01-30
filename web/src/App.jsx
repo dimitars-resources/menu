@@ -205,7 +205,7 @@ function App() {
                         fontSize={"lg"}
                         fontWeight={"semibold"}
                         variant="outline"
-                        placeholder="🔍 Search"
+                        placeholder={locales.searchPlaceholder ? locales.searchPlaceholder : '🔍 Search'}
                         colorScheme={"blue"}
                         onChange={handleSearch}
                       />
@@ -227,7 +227,7 @@ function App() {
                                   marginTop={"2"}
                                 >
                                   <AlertIcon />
-                                  Cannot find any item by that name.
+                                  {locales.noItemsWithThatName ? locales.noItemsWithThatName : 'Cannot find any item by that name.'}
                                 </Alert>
                               </Center>
                             )
@@ -272,7 +272,7 @@ function App() {
                           >
                             <ModalOverlay />
                             <ModalContent>
-                              <ModalHeader>How much do you want?</ModalHeader>
+                              <ModalHeader>{locales.modalHeader ? locales.modalHeader : 'How much do you want?'}</ModalHeader>
                               <ModalCloseButton />
                               <ModalBody>
                                 <motion.form onSubmit={handleGiveItem}>
@@ -303,7 +303,7 @@ function App() {
                                       width={400}
                                       type="submit"
                                     >
-                                      Give
+                                      {locales.giveButton ? locales.giveButton : 'Give'}
                                     </Button>
                                   </Flex>
                                 </motion.form>

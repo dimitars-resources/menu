@@ -1,5 +1,10 @@
 {
     "itemsTab": "Items",
     "createTab": "Create",
-    "informationTab": "Information"
+    "informationTab": "Information",
+
+    "searchPlaceholder": "🔍 Search",
+    "noItemsWithThatName": "Cannot find any item by that name.",
+    "modalHeader": "How much do you want?",
+    "giveButton": "Give"
 }
