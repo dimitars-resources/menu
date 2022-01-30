@@ -190,9 +190,9 @@ function App() {
             >
               <Tabs isFitted colorScheme={"blue"}>
                 <TabList mb="1em">
-                  <Tab fontWeight={"semibold"}>Items</Tab>
-                  <Tab fontWeight={"semibold"}>Create</Tab>
-                  <Tab fontWeight={"semibold"}>Information</Tab>
+                  <Tab fontWeight={"semibold"}>{locales.itemsTab ? locales.itemsTab : 'Items'}</Tab>
+                  <Tab fontWeight={"semibold"}>{locales.createTab ? locales.createTab : 'Create'}</Tab>
+                  <Tab fontWeight={"semibold"}>{locales.informationTab ? locales.informationTab : 'Information'}</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
