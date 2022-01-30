@@ -15,9 +15,9 @@ Menu.RegisterEvent('menu:giveItem', function(source, item, amount)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
 
-    if xPlayer.canCarryItem(item, amount) then
-        xPlayer.addInventoryItem(item, amount)
-        print('^5[Menu]^7 Successfully added x' .. amount .. ' item/s with name: `' .. item .. '` to ' .. xPlayer.getName() .. '!')
+    if xPlayer.canCarryItem(item, tonumber(amount)) then
+        xPlayer.addInventoryItem(item, tonumber(amount))
+        print('^5[Menu]^7 Successfully added x' .. tonumber(amount) .. ' item/s with name: `' .. item .. '` to ' .. xPlayer.getName() .. '!')
     end
 end)
 
