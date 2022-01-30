@@ -17,7 +17,7 @@ Menu.RegisterEvent('menu:giveItem', function(source, item, amount)
 
     if xPlayer.canCarryItem(item, amount) then
         xPlayer.addInventoryItem(item, amount)
-        print('^5[Menu]^7 Successfully added x' .. amount .. ' item/s with name: `' .. item .. '` to ' .. xPlayer.name .. '!')
+        print('^5[Menu]^7 Successfully added x' .. amount .. ' item/s with name: `' .. item .. '` to ' .. xPlayer.getName() .. '!')
     end
 end)
 
