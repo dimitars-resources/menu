@@ -5,7 +5,7 @@
 
     "searchPlaceholder": "🔍 Search",
     "noItemsWithThatName": "Cannot find any item by that name.",
-    "modalHeader": "How much do you want?",
+    "giveModalHeader": "How much do you want?",
     "giveButton": "Give",
 
     "createTabHeader": "Create new item",
@@ -15,5 +15,11 @@
     "itemLabelPlaceholder": "Bread",
     "itemWeight": "Weight",
     "itemLimit": "Limit",
-    "createButton": "Create"
+    "createButton": "Create",
+
+    "totalItemsCount": "Total items count",
+    "clearInventory": "Clear Inventory",
+    "clearModalHeader": "Are you sure?",
+    "confirmClearModal": "Confirm",
+    "cancelClearModal": "Cancel"
 }

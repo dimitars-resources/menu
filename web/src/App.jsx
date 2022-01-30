@@ -272,7 +272,7 @@ function App() {
                           >
                             <ModalOverlay />
                             <ModalContent>
-                              <ModalHeader>{locales.modalHeader ? locales.modalHeader : 'How much do you want?'}</ModalHeader>
+                              <ModalHeader>{locales.giveModalHeader ? locales.giveModalHeader : 'How much do you want?'}</ModalHeader>
                               <ModalCloseButton />
                               <ModalBody>
                                 <motion.form onSubmit={handleGiveItem}>
@@ -440,14 +440,14 @@ function App() {
                     <Center>
                       <Alert status="info" width={"50%"} borderRadius={"md"}>
                         <AlertIcon />
-                        Total items count: {itemsCount}
+                        {locales.totalItemsCount ? locales.totalItemsCount : 'Total items count'}: {itemsCount}
                         <Spacer />
                         <Button
                           onClick={handleModalClear}
                           colorScheme="red"
                           size="sm"
                         >
-                          Clear Inventory
+                          {locales.clearInventory ? locales.clearInventory : 'Clear Inventory'}
                         </Button>
                       </Alert>
                     </Center>
@@ -459,7 +459,7 @@ function App() {
                     >
                       <ModalOverlay />
                       <ModalContent>
-                        <ModalHeader>Are you sure?</ModalHeader>
+                        <ModalHeader>{locales.clearModalHeader ? locales.clearModalHeader : 'Are you sure?'}</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
                           <Flex justify="space-between" wrap="nowrap">
@@ -469,14 +469,14 @@ function App() {
                               width={"49%"}
                               marginRight={"1%"}
                             >
-                              Confirm
+                              {locales.confirmClearModal ? locales.confirmClearModal : 'Confirm'}
                             </Button>
                             <Button
                               onClick={handleCloseModalClear}
                               colorScheme="red"
                               width={"49%"}
                             >
-                              Cancel
+                              {locales.cancelClearModal ? locales.cancelClearModal : 'Cancel'}
                             </Button>
                           </Flex>
                         </ModalBody>
