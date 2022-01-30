@@ -6,5 +6,14 @@
     "searchPlaceholder": "🔍 Search",
     "noItemsWithThatName": "Cannot find any item by that name.",
     "modalHeader": "How much do you want?",
-    "giveButton": "Give"
+    "giveButton": "Give",
+
+    "createTabHeader": "Create new item",
+    "itemName": "Name",
+    "itemNamePlaceholder": "bread",
+    "itemLabel": "Label",
+    "itemLabelPlaceholder": "Bread",
+    "itemWeight": "Weight",
+    "itemLimit": "Limit",
+    "createButton": "Create"
 }

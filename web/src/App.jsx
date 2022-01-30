@@ -323,7 +323,7 @@ function App() {
                             fontSize={"lg"}
                             fontWeight={"semibold"}
                           >
-                            Create new item
+                            {locales.createTabHeader ? locales.createTabHeader : 'Create new item'}
                           </Text>
                         </Center>
                         <Flex wrap={"wrap"}>
@@ -332,7 +332,7 @@ function App() {
                             fontSize={"md"}
                             fontWeight={"semibold"}
                           >
-                            Name
+                            {locales.itemName ? locales.itemName : 'Name'}
                           </Text>
                           <Input
                             width={"100%"}
@@ -342,7 +342,7 @@ function App() {
                             fontSize={"lg"}
                             fontWeight={"semibold"}
                             variant="outline"
-                            placeholder="bread"
+                            placeholder={locales.itemNamePlaceholder ? locales.itemNamePlaceholder : 'bread'}
                             colorScheme={"blue"}
                             name="name"
                             required
@@ -354,7 +354,7 @@ function App() {
                             fontSize={"md"}
                             fontWeight={"semibold"}
                           >
-                            Label
+                            {locales.itemLabel ? locales.itemLabel : 'Label'}
                           </Text>
                           <Input
                             width={"100%"}
@@ -364,7 +364,7 @@ function App() {
                             fontSize={"lg"}
                             fontWeight={"semibold"}
                             variant="outline"
-                            placeholder="Bread"
+                            placeholder={locales.itemLabelPlaceholder ? locales.itemLabelPlaceholder : 'Bread'}
                             colorScheme={"blue"}
                             name="label"
                             required
@@ -377,7 +377,7 @@ function App() {
                               fontSize={"md"}
                               fontWeight={"semibold"}
                             >
-                              Weight
+                              {locales.itemWeight ? locales.itemWeight : 'Weight'}
                             </Text>
                             <NumberInput
                               defaultValue={0.0}
@@ -404,7 +404,7 @@ function App() {
                               fontSize={"md"}
                               fontWeight={"semibold"}
                             >
-                              Limit
+                              {locales.itemLimit ? locales.itemLimit : 'Limit'}
                             </Text>
                             <NumberInput
                               defaultValue={1}
@@ -431,7 +431,7 @@ function App() {
                           width={"100%"}
                           marginBottom={"2"}
                         >
-                          Create
+                          {locales.createButton ? locales.createButton : 'Create'}
                         </Button>
                       </motion.form>
                     </Center>
