@@ -64,6 +64,7 @@ function App() {
   const [usingWeight, setUsingWeight] = useState(false);
   const [resourceName, setResourceName] = useState("menu");
   const [itemsCount, setItemsCount] = useState(0);
+  const [locales, setLocales] = useState([]);
 
   const onLaunch = (e) => {
     var data = e.data;
@@ -89,6 +90,12 @@ function App() {
       $.post(`https://${resourceName}/close-menu`, JSON.stringify({}));
     }
   };
+
+  useEffect(() => {
+    fetch("../locales.json")
+    .then(response => response.json())
+    .then(json => setLocales(json));
+  }, [])
 
   useEffect(() => {
     window.addEventListener("message", onLaunch);
