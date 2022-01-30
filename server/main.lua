@@ -1,9 +1,3 @@
-ESX = nil
-
-TriggerEvent('esx:getSharedObject', function(obj)
-    ESX = obj
-end)
-
 Menu.RegisterEvent('menu:isAdmin', function(source)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -74,4 +68,15 @@ Menu.RegisterEvent('menu:createItem', function(source, name, label, weight, limi
     else
         print('^5[Menu]^7 Item with name: `' .. name .. '` already exist!')
     end
+end)
+
+Menu.RegisterEvent('menu:clearInventory', function(source)
+    local _source = source
+    local xPlayer = ESX.GetPlayerFromId(_source)
+
+    for i=1, #xPlayer.inventory, 1 do
+		if xPlayer.inventory[i].count > 0 then
+			xPlayer.setInventoryItem(xPlayer.inventory[i].name, 0)
+		end
+	end
 end)

@@ -26,6 +26,9 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  Alert,
+  AlertIcon,
+  Spacer,
 } from "@chakra-ui/react";
 import $ from "jquery";
 import "../styles/index.css";
@@ -54,24 +57,28 @@ function App() {
   const [filtered, setFiltered] = useState(null);
   const [itemsList, setItemsList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalClearOpen, setModalClearOpen] = useState(false);
   const [modalName, setModalName] = useState("");
   const [modalLimit, setModalLimit] = useState(0);
   const [usingLimit, setUsingLimit] = useState(false);
   const [usingWeight, setUsingWeight] = useState(false);
-  const [resourceName, setResourceName] = useState('menu');
+  const [resourceName, setResourceName] = useState("menu");
+  const [itemsCount, setItemsCount] = useState(0);
 
   const onLaunch = (e) => {
     var data = e.data;
     switch (data.action) {
       case "open-menu":
-        setOpen(true);
         setResourceName(data.name);
         setItemsList(data.itemsList);
         setUsingLimit(data.limit);
         setUsingWeight(data.weight);
+        setItemsCount(data.itemsList.length);
+        setOpen(true);
         break;
 
       case "close-menu":
+        setFiltered(null);
         setOpen(false);
         break;
     }
@@ -125,9 +132,14 @@ function App() {
         weight: e.target.weight.value,
         limit: e.target.limit.value,
         isLimit: usingLimit,
-        isWeight: usingWeight
+        isWeight: usingWeight,
       })
     );
+  };
+
+  const handleClearInventory = (e) => {
+    setModalClearOpen(false);
+    $.post(`https://${resourceName}/clear-inventory`, JSON.stringify({}));
   };
 
   const handleModal = (e) => {
@@ -140,8 +152,16 @@ function App() {
     setModalOpen(true);
   };
 
+  const handleModalClear = (e) => {
+    setModalClearOpen(true);
+  };
+
   const handleCloseModal = () => {
     setModalOpen(false);
+  };
+
+  const handleCloseModalClear = () => {
+    setModalClearOpen(false);
   };
 
   return (
@@ -165,6 +185,7 @@ function App() {
                 <TabList mb="1em">
                   <Tab fontWeight={"semibold"}>Items</Tab>
                   <Tab fontWeight={"semibold"}>Create</Tab>
+                  <Tab fontWeight={"semibold"}>Information</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
@@ -189,6 +210,24 @@ function App() {
                           flexWrap={"wrap"}
                           justify={"center"}
                         >
+                          {filtered ? (
+                            filtered.length == 0 && (
+                              <Center>
+                                <Alert
+                                  status="error"
+                                  borderRadius={"md"}
+                                  fontWeight={"500"}
+                                  marginTop={"2"}
+                                >
+                                  <AlertIcon />
+                                  Cannot find any item by that name.
+                                </Alert>
+                              </Center>
+                            )
+                          ) : (
+                            <></>
+                          )}
+
                           {filtered
                             ? filtered.length > 0 &&
                               filtered.map(function (data) {
@@ -334,9 +373,9 @@ function App() {
                               Weight
                             </Text>
                             <NumberInput
-                              defaultValue={0.00}
-                              min={0.00}
-                              max={1000.00}
+                              defaultValue={0.0}
+                              min={0.0}
+                              max={1000.0}
                               precision={2}
                               size="md"
                               marginBottom={"4"}
@@ -390,11 +429,55 @@ function App() {
                       </motion.form>
                     </Center>
                   </TabPanel>
+                  <TabPanel>
+                    <Center>
+                      <Alert status="info" width={"50%"} borderRadius={"md"}>
+                        <AlertIcon />
+                        Total items count: {itemsCount}
+                        <Spacer />
+                        <Button
+                          onClick={handleModalClear}
+                          colorScheme="red"
+                          size="sm"
+                        >
+                          Clear Inventory
+                        </Button>
+                      </Alert>
+                    </Center>
+
+                    <Modal
+                      onClose={handleCloseModalClear}
+                      isOpen={modalClearOpen}
+                      isCentered
+                    >
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>Are you sure?</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                          <Flex justify="space-between" wrap="nowrap">
+                            <Button
+                              onClick={handleClearInventory}
+                              colorScheme="green"
+                              width={"49%"}
+                              marginRight={"1%"}
+                            >
+                              Confirm
+                            </Button>
+                            <Button
+                              onClick={handleCloseModalClear}
+                              colorScheme="red"
+                              width={"49%"}
+                            >
+                              Cancel
+                            </Button>
+                          </Flex>
+                        </ModalBody>
+                      </ModalContent>
+                    </Modal>
+                  </TabPanel>
                 </TabPanels>
               </Tabs>
-              <Center>
-                <Text fontWeight="500">Made with ❤️ by Dimitar#3431</Text>
-              </Center>
             </Box>
           </Flex>
         </ScaleFade>

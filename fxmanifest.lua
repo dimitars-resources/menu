@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-version '1.0.3'
+version '0.0.1'
 description 'Item menu for FiveM'
 author 'Dimitar'
 
@@ -15,7 +15,8 @@ files {
 
 shared_scripts {
     'config.lua',
-    'menu.lua'
+    'menu.lua',
+    '@es_extended/imports.lua'
 }
 
 client_scripts {
