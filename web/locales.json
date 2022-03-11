@@ -8,6 +8,9 @@
     "giveModalHeader": "How much do you want?",
     "giveButton": "Give",
 
+    "confirmEditModal": "Edit",
+    "cancelEditModal": "Cancel",
+
     "createTabHeader": "Create new item",
     "itemName": "Name",
     "itemNamePlaceholder": "bread",
