@@ -71,6 +71,8 @@ function App() {
   const [usingWeight, setUsingWeight] = useState(false);
   const [resourceName, setResourceName] = useState("menu");
   const [itemsCount, setItemsCount] = useState(0);
+  const [menuWidth, setMenuWidth] = useState(50);
+  const [menuHeight, setMenuHeight] = useState(35);
   const [locales, setLocales] = useState([]);
 
   const onLaunch = (e) => {
@@ -82,6 +84,8 @@ function App() {
         setUsingLimit(data.limit);
         setUsingWeight(data.weight);
         setItemsCount(data.itemsList.length);
+        setMenuWidth(data.width);
+        setMenuHeight(data.height);
         setOpen(true);
         break;
 
@@ -235,8 +239,8 @@ function App() {
             height={"100vh"}
           >
             <Box
-              width={"50vw"}
-              height={"35vh"}
+              width={menuWidth + "vw"}
+              height={menuHeight + "vh"}
               borderRadius={"md"}
               style={{ backgroundColor: "#1A202C" }}
               overflow={"hidden"}
@@ -263,7 +267,7 @@ function App() {
                         onChange={handleSearch}
                       />
                     </Center>
-                    <Box maxHeight={"47vh"} overflowY={"auto"}>
+                    <Box maxHeight={menuHeight - 10 + "vh"} overflowY={"auto"}>
                       <Center>
                         <Flex
                           width={"90%"}
