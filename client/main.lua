@@ -9,7 +9,9 @@ RegisterNetEvent('menu:sendItems', function(items)
         name = GetCurrentResourceName(),
         itemsList = itemsList,
         limit = Config.Limit,
-        weight = Config.Weight
+        weight = Config.Weight,
+        width = Config.MenuWidth,
+        height = Config.MenuHeight
     })
 end)
 
