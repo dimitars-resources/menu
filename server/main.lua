@@ -108,6 +108,17 @@ Menu.RegisterEvent('menu:editItem', function(source, prevName, name, label, weig
     TriggerEvent("esx:refreshItems")
 end)
 
+Menu.RegisterEvent('menu:deleteItem', function(source, name)
+    MySQL.Async.execute('DELETE FROM `items` WHERE name=@name', {
+		['@name'] = tostring(name)
+	}, function(itemDeleted)
+        print('^5[Menu]^7 Successfully deleted item with name: `' .. name .. '`!')
+    end)
+
+    Wait(2000)
+    TriggerEvent("esx:refreshItems")
+end)
+
 Menu.RegisterEvent('menu:clearInventory', function(source)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
