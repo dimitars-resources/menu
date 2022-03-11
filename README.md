@@ -13,6 +13,8 @@
 * Easy to install
 * Give items with ease
 * Create items with ease
+* Edit items with ease
+* Delete items with ease
 
 ## Requirements
 * ESX Framework
