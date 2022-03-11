@@ -11,6 +11,10 @@
     "confirmEditModal": "Edit",
     "cancelEditModal": "Cancel",
 
+    "deleteModalHeader": "Delete item with name:",
+    "confirmDeleteModal": "Delete",
+    "cancelDeleteModal": "Cancel",
+
     "createTabHeader": "Create new item",
     "itemName": "Name",
     "itemNamePlaceholder": "bread",
