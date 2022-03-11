@@ -58,7 +58,12 @@ function App() {
   const [itemsList, setItemsList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalClearOpen, setModalClearOpen] = useState(false);
+  const [modalEditOpen, setModalEditOpen] = useState(false);
   const [modalName, setModalName] = useState("");
+  const [modalEditName, setModalEditName] = useState("");
+  const [modalEditLabel, setModalEditLabel] = useState("");
+  const [modalEditWeight, setModalEditWeight] = useState(0);
+  const [modalEditLimit, setModalEditLimit] = useState(0);
   const [modalLimit, setModalLimit] = useState(0);
   const [usingLimit, setUsingLimit] = useState(false);
   const [usingWeight, setUsingWeight] = useState(false);
@@ -149,6 +154,21 @@ function App() {
     $.post(`https://${resourceName}/clear-inventory`, JSON.stringify({}));
   };
 
+  const handleEditItem = (e) => {
+    $.post(
+      `https://${resourceName}/edit-item`,
+      JSON.stringify({
+        prevName: modalEditName,
+        name: e.target.name.value,
+        label: e.target.label.value,
+        weight: e.target.weight.value,
+        limit: e.target.limit.value,
+        isLimit: usingLimit,
+        isWeight: usingWeight,
+      })
+    );
+  };
+
   const handleModal = (e) => {
     setModalName(e.target.id);
     if (usingLimit) {
@@ -159,6 +179,14 @@ function App() {
     setModalOpen(true);
   };
 
+  const handleEditModal = (name, label, limit, weight) => {
+    setModalEditName(name);
+    setModalEditLabel(label);
+    setModalEditLimit(limit);
+    setModalEditWeight(weight);
+    setModalEditOpen(true);
+  };
+
   const handleModalClear = (e) => {
     setModalClearOpen(true);
   };
@@ -166,6 +194,10 @@ function App() {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+
+  const handleCloseEditModal = () => {
+    setModalEditOpen(false);
+  }
 
   const handleCloseModalClear = () => {
     setModalClearOpen(false);
@@ -183,7 +215,7 @@ function App() {
           >
             <Box
               width={"50vw"}
-              height={"60vh"}
+              height={"35vh"}
               borderRadius={"md"}
               style={{ backgroundColor: "#1A202C" }}
               overflow={"hidden"}
@@ -238,7 +270,7 @@ function App() {
                           {filtered
                             ? filtered.length > 0 &&
                               filtered.map(function (data) {
-                                const { name, label, limit } = data;
+                                const { name, label, limit, weight } = data;
                                 return (
                                   <Button
                                     id={name}
@@ -246,13 +278,19 @@ function App() {
                                     onClick={handleModal}
                                     margin={"2"}
                                     colorScheme={"blue"}
+                                    onContextMenu={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+
+                                      handleEditModal(name, label, limit, weight);
+                                    }}
                                   >
                                     {label}
                                   </Button>
                                 );
                               })
                             : itemsList.map(function (data) {
-                                const { name, label, limit } = data;
+                                const { name, label, limit, weight } = data;
                                 return (
                                   <Button
                                     id={name}
@@ -260,6 +298,12 @@ function App() {
                                     onClick={handleModal}
                                     margin={"2"}
                                     colorScheme={"blue"}
+                                    onContextMenu={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+
+                                      handleEditModal(name, label, limit, weight);
+                                    }}
                                   >
                                     {label}
                                   </Button>
@@ -304,6 +348,140 @@ function App() {
                                       type="submit"
                                     >
                                       {locales.giveButton ? locales.giveButton : 'Give'}
+                                    </Button>
+                                  </Flex>
+                                </motion.form>
+                              </ModalBody>
+                            </ModalContent>
+                          </Modal>
+
+                          <Modal
+                            isOpen={modalEditOpen}
+                            onClose={handleCloseEditModal}
+                            isCentered
+                          >
+                            <ModalOverlay />
+                            <ModalContent>
+                              <ModalHeader>Edit item</ModalHeader>
+                              <ModalCloseButton />
+                              <ModalBody>
+                                <motion.form onSubmit={handleEditItem}>
+                                  <Flex wrap={"wrap"}>
+                                    <Text
+                                      marginBottom={"1"}
+                                      fontSize={"md"}
+                                      fontWeight={"semibold"}
+                                    >
+                                      {locales.itemName ? locales.itemName : 'Name'}
+                                    </Text>
+                                    <Input
+                                      width={"100%"}
+                                      height={"12"}
+                                      marginBottom={"2"}
+                                      minWidth={"0"}
+                                      fontSize={"lg"}
+                                      fontWeight={"semibold"}
+                                      variant="outline"
+                                      defaultValue={modalEditName}
+                                      colorScheme={"blue"}
+                                      name="name"
+                                      required
+                                    ></Input>
+                                  </Flex>
+
+                                  <Flex wrap={"wrap"}>
+                                    <Text
+                                      marginBottom={"1"}
+                                      fontSize={"md"}
+                                      fontWeight={"semibold"}
+                                    >
+                                      {locales.itemLabel ? locales.itemLabel : 'Label'}
+                                    </Text>
+                                    <Input
+                                      width={"100%"}
+                                      height={"12"}
+                                      marginBottom={"2"}
+                                      minWidth={"0"}
+                                      fontSize={"lg"}
+                                      fontWeight={"semibold"}
+                                      variant="outline"
+                                      defaultValue={modalEditLabel}
+                                      colorScheme={"blue"}
+                                      name="label"
+                                      required
+                                    ></Input>
+                                  </Flex>
+
+                                  <Flex wrap={"nowrap"}>
+                                    <Flex wrap={"wrap"}>
+                                      <Text
+                                        marginBottom={"1"}
+                                        fontSize={"md"}
+                                        fontWeight={"semibold"}
+                                      >
+                                        {locales.itemWeight ? locales.itemWeight : 'Weight'}
+                                      </Text>
+                                      <NumberInput
+                                        defaultValue={modalEditWeight || 0.0}
+                                        min={0.0}
+                                        max={1000.0}
+                                        precision={2}
+                                        size="md"
+                                        marginBottom={"4"}
+                                        marginRight={"2"}
+                                        width={"99%"}
+                                        name="weight"
+                                        isDisabled={!usingWeight}
+                                      >
+                                        <NumberInputField />
+                                        <NumberInputStepper>
+                                          <NumberIncrementStepper />
+                                          <NumberDecrementStepper />
+                                        </NumberInputStepper>
+                                      </NumberInput>
+                                    </Flex>
+                                    <Flex wrap={"wrap"}>
+                                      <Text
+                                        marginBottom={"1"}
+                                        fontSize={"md"}
+                                        fontWeight={"semibold"}
+                                      >
+                                        {locales.itemLimit ? locales.itemLimit : 'Limit'}
+                                      </Text>
+                                      <NumberInput
+                                        defaultValue={modalEditLimit || 1}
+                                        min={1}
+                                        max={1000}
+                                        size="md"
+                                        marginBottom={"4"}
+                                        width={"99%"}
+                                        name="limit"
+                                        isDisabled={!usingLimit}
+                                      >
+                                        <NumberInputField />
+                                        <NumberInputStepper>
+                                          <NumberIncrementStepper />
+                                          <NumberDecrementStepper />
+                                        </NumberInputStepper>
+                                      </NumberInput>
+                                    </Flex>
+                                  </Flex>
+
+                                  <Flex justify="space-between" wrap="nowrap" mb="3" mt="4">
+                                    <Button
+                                      colorScheme="green"
+                                      type="submit"
+                                      width={"49%"}
+                                      marginRight={"1%"}
+                                    >
+                                      {locales.confirmEditModal ? locales.confirmEditModal : 'Edit'}
+                                    </Button>
+                                    <Button
+                                      onClick={handleCloseEditModal}
+                                      colorScheme="red"
+                                      width={"49%"}
+                                    >
+                                      {locales.cancelEditModal ? locales.cancelEditModal : 'Cancel'}
                                     </Button>
                                   </Flex>
                                 </motion.form>
