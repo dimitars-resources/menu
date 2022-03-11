@@ -59,11 +59,13 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalClearOpen, setModalClearOpen] = useState(false);
   const [modalEditOpen, setModalEditOpen] = useState(false);
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
   const [modalName, setModalName] = useState("");
   const [modalEditName, setModalEditName] = useState("");
   const [modalEditLabel, setModalEditLabel] = useState("");
   const [modalEditWeight, setModalEditWeight] = useState(0);
   const [modalEditLimit, setModalEditLimit] = useState(0);
+  const [modalDeleteName, setModalDeleteName] = useState("");
   const [modalLimit, setModalLimit] = useState(0);
   const [usingLimit, setUsingLimit] = useState(false);
   const [usingWeight, setUsingWeight] = useState(false);
@@ -169,6 +171,16 @@ function App() {
     );
   };
 
+  const handleDeleteItem = (e) => {
+    setModalDeleteOpen(false);
+    $.post(
+      `https://${resourceName}/delete-item`,
+      JSON.stringify({
+        name: modalDeleteName
+      })
+    );
+  };
+
   const handleModal = (e) => {
     setModalName(e.target.id);
     if (usingLimit) {
@@ -187,6 +199,11 @@ function App() {
     setModalEditOpen(true);
   };
 
+  const handleDeleteModal = (name) => {
+    setModalDeleteName(name);
+    setModalDeleteOpen(true);
+  };
+
   const handleModalClear = (e) => {
     setModalClearOpen(true);
   };
@@ -197,6 +214,10 @@ function App() {
 
   const handleCloseEditModal = () => {
     setModalEditOpen(false);
+  }
+
+  const handleCloseModalDelete = () => {
+    setModalDeleteOpen(false);
   }
 
   const handleCloseModalClear = () => {
@@ -284,6 +305,13 @@ function App() {
 
                                       handleEditModal(name, label, limit, weight);
                                     }}
+                                    onMouseDown={(e) => {
+                                      if (e.button === 1) {
+                                        e.preventDefault();
+                                        
+                                        handleDeleteModal(name);
+                                      }
+                                    }}
                                   >
                                     {label}
                                   </Button>
@@ -303,6 +331,13 @@ function App() {
                                       e.stopPropagation();
 
                                       handleEditModal(name, label, limit, weight);
+                                    }}
+                                    onMouseDown={(e) => {
+                                      if (e.button === 1) {
+                                        e.preventDefault();
+                                        
+                                        handleDeleteModal(name);
+                                      }
                                     }}
                                   >
                                     {label}
@@ -485,6 +520,37 @@ function App() {
                                     </Button>
                                   </Flex>
                                 </motion.form>
+                              </ModalBody>
+                            </ModalContent>
+                          </Modal>
+
+                          <Modal
+                            onClose={handleCloseModalDelete}
+                            isOpen={modalDeleteOpen}
+                            isCentered
+                          >
+                            <ModalOverlay />
+                            <ModalContent>
+                              <ModalHeader>{locales.deleteModalHeader ? locales.deleteModalHeader : 'Delete item with name:'} {modalDeleteName}</ModalHeader>
+                              <ModalCloseButton />
+                              <ModalBody>
+                                <Flex justify="space-between" wrap="nowrap">
+                                  <Button
+                                    onClick={handleDeleteItem}
+                                    colorScheme="red"
+                                    width={"49%"}
+                                    marginRight={"1%"}
+                                  >
+                                    {locales.confirmDeleteModal ? locales.confirmDeleteModal : 'Delete'}
+                                  </Button>
+                                  <Button
+                                    onClick={handleCloseModalDelete}
+                                    colorScheme="blue"
+                                    width={"49%"}
+                                  >
+                                    {locales.cancelDeleteModal ? locales.cancelDeleteModal : 'Cancel'}
+                                  </Button>
+                                </Flex>
                               </ModalBody>
                             </ModalContent>
                           </Modal>
