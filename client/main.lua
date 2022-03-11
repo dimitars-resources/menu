@@ -59,6 +59,19 @@ RegisterNUICallback("edit-item", function(data)
     end
 end)
 
+RegisterNUICallback("delete-item", function(data)
+    SetNuiFocus(false, false)
+    SendNUIMessage({
+        action = 'close-menu'
+    })
+
+    isAdmin = Menu.TriggerServerEvent('menu:isAdmin')
+
+    if isAdmin then
+        Menu.TriggerServerEvent('menu:deleteItem', data.name)
+    end
+end)
+
 RegisterNUICallback("clear-inventory", function(data)
     SetNuiFocus(false, false)
     SendNUIMessage({
