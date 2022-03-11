@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-version '0.0.1'
+version '0.0.4'
 description 'Item menu for FiveM'
 author 'Dimitar'
 
