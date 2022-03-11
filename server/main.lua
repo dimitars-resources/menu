@@ -65,9 +65,47 @@ Menu.RegisterEvent('menu:createItem', function(source, name, label, weight, limi
                 print('^5[Menu]^7 Successfully created item with name: `' .. name .. '`!')
             end)
         end
+
+        Wait(2000)
+        TriggerEvent("esx:refreshItems")
     else
         print('^5[Menu]^7 Item with name: `' .. name .. '` already exist!')
     end
+end)
+
+Menu.RegisterEvent('menu:editItem', function(source, prevName, name, label, weight, limit, isLimit, isWeight)
+    if isLimit and not isWeight then
+        MySQL.Async.execute("UPDATE `items` SET name=@name, label=@label, limit=@limit WHERE name=@prevName", {
+            ["@prevName"] = tostring(prevName),
+            ['@name'] = tostring(name),
+            ['@label'] = tostring(label),
+            ['@limit'] = tonumber(limit)
+        }, function(itemEdited)
+            print('^5[Menu]^7 Successfully edited item with name: `' .. name .. '` (' .. prevName .. ')!')
+        end)
+    elseif not isLimit and isWeight then
+        MySQL.Async.execute("UPDATE `items` SET name=@name, label=@label, weight=@weight WHERE name=@prevName", {
+            ["@prevName"] = tostring(prevName),
+            ['@name'] = tostring(name),
+            ['@label'] = tostring(label),
+            ['@weight'] = tonumber(weight)
+        }, function(itemEdited)
+            print('^5[Menu]^7 Successfully edited item with name: `' .. name .. '` (' .. prevName .. ')!')
+        end)
+    else
+        MySQL.Async.execute("UPDATE `items` SET name=@name, label=@label, weight=@weight, limit=@limit WHERE name=@prevName", {
+            ["@prevName"] = tostring(prevName),
+            ['@name'] = tostring(name),
+            ['@label'] = tostring(label),
+            ['@weight'] = tonumber(weight),
+            ['@limit'] = tonumber(limit)
+        }, function(itemEdited)
+            print('^5[Menu]^7 Successfully edited item with name: `' .. name .. '` (' .. prevName .. ')!')
+        end)
+    end
+
+    Wait(2000)
+    TriggerEvent("esx:refreshItems")
 end)
 
 Menu.RegisterEvent('menu:clearInventory', function(source)
